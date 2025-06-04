@@ -1,5 +1,6 @@
 import Boards from './components/Boards';
 import Controller from './components/Controller';
+import { BoardProvider } from './context/BoardContext';
 
 const MOCK_DATA = [
   {
@@ -50,16 +51,18 @@ const MOCK_DATA = [
 // 이를 Zustand을 이용하여 상태관리를 하도록 변경합니다.
 
 function App() {
+  
   return (
+    <BoardProvider initialData={MOCK_DATA}>
     <div className="flex flex-col h-screen">
       <header className="w-full h-[80px] bg-slate-800 flex flex-col items-center justify-center text-stone-100">
         <p className="text-lg font-semibold">Kanban Board Project</p>
       </header>
       <main className="flex-1 flex flex-col justify-between">
         <div className="grid grid-cols-3 gap-4 p-4 w-full">
-          <Boards type={'todo'} data={MOCK_DATA} />
-          <Boards type={'inprogress'} data={MOCK_DATA} />
-          <Boards type={'done'} data={MOCK_DATA} />
+          <Boards type={'todo'} />
+          <Boards type={'inprogress'} />
+          <Boards type={'done'} />
         </div>
         <Controller />
       </main>
@@ -67,7 +70,8 @@ function App() {
         <p>&copy; Dev-KMS</p>
       </footer>
     </div>
-  );
+  </BoardProvider>
+  );  
 }
 
 export default App;
