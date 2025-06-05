@@ -14,9 +14,10 @@ export const useBoardStore = create((set) => ({
         set((state) => ({
             boards: state.boards.filter((board) => board.id !== id),
         })),
-    editBoard: (id, updatedBoard) => set((state) => ({
-        boards: state.boards.map((board) =>
-            board.id === id ? { ...board, ...updatedBoard } : board
-        ),
+    editBoard: (updatedBoard) =>
+        set((state) => ({
+            boards: state.boards.map((board) =>
+                board.id === updatedBoard.id ? { ...board, ...updatedBoard } : board
+            ),
     })),
 }));

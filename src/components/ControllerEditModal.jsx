@@ -7,7 +7,7 @@ const ControllerEditModal = ({ onClose, board }) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = {
-            ...board,
+            id: board.id, // ensure id is included for identification
             type: formData.get('type'),
             title: formData.get('title'),
             desc: formData.get('desc'),

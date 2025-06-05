@@ -1,5 +1,6 @@
 import { useBoardStore } from "../store";
 import { useState } from "react";
+import ControllerEditModal from "./ControllerEditModal";
 
 
 const BoardDetailModal = ({ item, onClose }) => {
@@ -41,6 +42,12 @@ const BoardDetailModal = ({ item, onClose }) => {
             삭제
           </button>
           {isOpen && <ControllerEditModal onClose={() => setIsOpen(false)} />}
+          {isOpen && (
+            <ControllerEditModal
+              onClose={() => setIsOpen(false)}
+              board={item}
+            />
+          )}
         </div>
       </div>
     </div>
