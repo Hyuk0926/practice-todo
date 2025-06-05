@@ -1,6 +1,8 @@
 import Boards from './components/Boards';
 import Controller from './components/Controller';
 import { BoardProvider } from './context/BoardContext';
+import { useBoardStore } from './store';
+import { useEffect } from 'react';
 
 const MOCK_DATA = [
   {
@@ -47,30 +49,32 @@ const MOCK_DATA = [
   },
 ];
 
-// 기존 Boards 컴포넌트에서 Data를 MockData를 Props를 받고 이용하는 형태로 구성되어 있습니다.
-// 이를 Zustand을 이용하여 상태관리를 하도록 변경합니다.
-
 function App() {
-  
+  const { setBoards } = useBoardStore();
+
+  useEffect(() => {
+    setBoards(MOCK_DATA);
+  }, [setBoards]);
+
   return (
     <BoardProvider initialData={MOCK_DATA}>
-    <div className="flex flex-col h-screen">
-      <header className="w-full h-[80px] bg-slate-800 flex flex-col items-center justify-center text-stone-100">
-        <p className="text-lg font-semibold">Kanban Board Project</p>
-      </header>
-      <main className="flex-1 flex flex-col justify-between">
-        <div className="grid grid-cols-3 gap-4 p-4 w-full">
-          <Boards type={'todo'} />
-          <Boards type={'inprogress'} />
-          <Boards type={'done'} />
-        </div>
-        <Controller />
-      </main>
-      <footer className="w-full h-[60px] bg-slate-800 flex items-center text-stone-100 justify-center">
-        <p>&copy; Dev-KMS</p>
-      </footer>
-    </div>
-  </BoardProvider>
+      <div className="flex flex-col h-screen">
+        <header className="w-full h-[80px] bg-slate-800 flex flex-col items-center justify-center text-stone-100">
+          <p className="text-lg font-semibold">Kanban Board Project</p>
+        </header>
+        <main className="flex-1 flex flex-col justify-between">
+          <div className="grid grid-cols-3 gap-4 p-4 w-full">
+            <Boards type={'todo'} />
+            <Boards type={'inprogress'} />
+            <Boards type={'done'} />
+          </div>
+          <Controller />
+        </main>
+        <footer className="w-full h-[60px] bg-slate-800 flex items-center text-stone-100 justify-center">
+          <p>&copy; Dev-KMS</p>
+        </footer>
+      </div>
+    </BoardProvider>
   );  
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BoardDetailModal from './BoardDetailModal';
-import { useBoards } from '../context/BoardContext';
+import { useBoardStore } from '../store';
 
 const typeToKorean = (type) => {
   switch (type) {
@@ -23,8 +23,8 @@ const typeToKorean = (type) => {
 //이후 Recoil의 useRecoilValue를 이용하여 Recoil의 상태를 가져오도록 수정합니다.
 
 const Boards = ({ type }) => {
-  const {boards} = useBoards();
-  console.log(boards);
+  const { boards } = useBoardStore();
+  const filteredBoards = boards.filter(board => board.type === type);
 
   const [item, setItem] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +45,7 @@ const Boards = ({ type }) => {
         <p className="text-lg font-semibold">{typeToKorean(type)}</p>
       </div>
       <div className="flex flex-col gap-2 p-4">
-        {boards.map((item) => (
+        {filteredBoards.map((item) => (
           <div
             onClick={() => handleModalOpen(item)}
             key={item.id}
